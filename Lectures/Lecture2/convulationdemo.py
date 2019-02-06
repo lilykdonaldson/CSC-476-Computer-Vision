@@ -34,3 +34,6 @@ print(f)
 # f1 = signal.convolve2d(x,w,'valid')
 # print(f1)
 # print(f1.shape)
+
+#perform unsharp mask by using only ONCE the convolution commad
+
