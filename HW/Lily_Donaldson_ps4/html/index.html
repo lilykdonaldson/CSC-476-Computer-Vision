@@ -1,0 +1,195 @@
+<html>
+<head>
+<title>CS 476 Project 4 </title>
+<link href='http://fonts.googleapis.com/css?family=Nunito:300|Crimson+Text|Droid+Sans+Mono' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" title="Default" href="styles/github.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>  
+
+<link rel="stylesheet" href="highlighting/styles/default.css">
+<script src="highlighting/highlight.pack.js"></script>
+
+<style type="text/css">
+body {
+	margin: 0px;
+	width: 100%;
+	font-family: 'Crimson Text', serif;
+	font-size: 20px;
+	background: #fcfcfc;
+}
+h1 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 28px;
+	margin: 25px 0px 0px 0px;
+	text-transform: lowercase;
+
+}
+
+h2 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 32px;
+	margin: 15px 0px 35px 0px;
+	color: #333;	
+	word-spacing: 3px;
+}
+
+h3 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 26px;
+	margin: 10px 0px 10px 0px;
+	color: #333;
+	word-spacing: 2px;
+}
+h4 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 22px;
+	margin: 10px 0px 10px 0px;
+	color: #333;
+	word-spacing: 2px;
+}
+
+h5 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 18px;
+	margin: 10px 0px 10px 0px;
+	color: #111;
+	word-spacing: 2px;
+}
+
+p, li {
+	color: #444;
+}
+
+a {
+	color: #DE3737;
+}
+
+.container {
+	margin: 0px auto 0px auto;
+	width: 960px;
+}
+
+#header {
+	background: #333;
+	width: 100%;
+}
+
+#headersub {
+	color: #ccc;
+	width: 960px;
+	margin: 0px auto 0px auto;
+	padding: 20px 0px 20px 0px;
+}
+
+.chart {
+	width: 480px;
+}
+.lol {
+	font-size: 16px;
+	color: #888;
+	font-style: italic;
+}
+.sep {
+	height: 1px;
+	width: 100%;
+	background: #999;
+	margin: 20px 0px 20px 0px;
+}
+.footer{
+	font-size: 16px;
+}
+.latex {
+	width: 100%;
+}
+
+.latex img {
+	display: block;
+	margin: 0px auto 0px auto;
+}
+
+pre {
+	font-family: 'Droid Sans Mono';
+	font-size: 14px;
+}
+
+td img {
+  vertical-align: middle;
+}
+
+#contents a {
+}
+</style>
+<script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+</script>
+</head>
+<body>
+<div id="header" >
+<div id="headersub">
+<h1>Lily Donaldson<span style="color: #DE3737"></span></h1>
+</div>
+</div>
+<div class="container">
+<h2>CSC 479/679 AU / Homework 4 / Image Blending Using Pyramids</h2>
+
+</div>
+<div class="container">
+<h2>Pyramid Blending Results</h2>
+<p>The first section shows the blending of images' Laplacian pyramids. The second sections shows the blending of images' Gaussian pyramids. The third section shows results where both pyramids were used.</p>
+
+<h3>Laplacian blending</h3>
+<pre><code>
+#gets the laplacian pyramids of two images and returns the composite
+def blendEmLap(img1,img2):
+    oG,oL = pyramids(img1)
+    aG,aL = pyramids(img2)
+    composite_image,composite_image2 = reconstruct(oL,aL,img1)
+    blended = composite_image2+composite_image
+</code></pre>
+<p>Laplacian of first twin</p>
+<img src="images/twin1Lap.png" />
+<p>Laplacian of second twin</p>
+<img src="images/twin2Lap.png"  /> 
+<p>Laplacian blend of both twins</p>
+<img src="images/laptwins.png"/>
+<p>Laplacian of an orange and apple</p>
+<img src="images/lapfruit.png"/>
+
+<h3>Gaussian blending</h3>
+<pre><code>
+#gets the gaussian pyramids of two images and returns the composite
+def blendEmGaus(img1,img2):
+    oG,oL = pyramids(img1)
+    aG,aL = pyramids(img2)
+    composite_image,composite_image2 = reconstruct(oG,aG,img1)
+    blended = composite_image2+composite_image
+</code></pre>
+<p>Gaussian of first twin</p>
+<img src="images/twin1Gaus.png" />
+<p>Gaussian of second twin</p>
+<img src="images/twin2Gaus.png"  /> 
+<p>Gaussian blend of both twins</p>
+<img src="images/gaustwins.png"/>
+<p>Gaussian of an orange and apple</p>
+<img src="images/gausfruit.png"/>
+<p>Gaussian of Kristof and a duck</p>
+<img src="images/duckkristof.png"/>
+
+<h3>Gaussian and Laplacian blending</h3>
+<p>Gaussian + Laplacian of twins</p>
+<img src="images/twinsboth.png" />
+<p>Gaussian + Laplacian of all siblings</p>
+<img src="images/siblingsall.png"  /> 
+
+
+
+<h2>Results Reflection</h2>
+<p> 	It seems that the Gaussian blending was the most successful, but only when the images had similar features that we're lined up correctly. The twins (my sister and I) and the apple and orange look the best because the fruits' shapes matched up, and my sister and my eyes' matched up. The last siblings image in "Gaussian and Laplacian blending" and the duck and Kristof blend were the least successful, Kristof-duck because they did not have similar features, and the siblings because my sister and brother's features were not matched up to my twin and I's. </p>
+</div>
+</div>
+</body>
+</html>
